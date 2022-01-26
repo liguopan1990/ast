@@ -21,20 +21,28 @@ function createAsset(entry){
     const traverse = require('@babel/traverse').default        //遍历AST节点
 
     traverse(ast, {
-        Identifier(path){
-//            if(path.node.name == 'test1')
-//            {
-//                path.node.name = 'test'
-//            }
+        Identifier(path){     //遍历声明的遍历
+            if(path.node.name == 'test1')
+            {
+                path.node.name = 'test'
+            }
         },
-        CallExpression(path) {
+        CallExpression(path) {        //函数调用的遍历
             // 对语法树中特定的节点进行操作 参考@babel/types （特定节点类型）
             // CallExpression 特定节点
+            if(path.node.callee.name == 'show')
+            {
+                path.node.callee.name = 'show1'
+            }
         },
-        FunctionDeclaration: function(path) {
+        FunctionDeclaration: function(path) {      //函数声明的遍历
             // 对语法树中特定的节点进行操作 参考@babel/types （特定节点类型）
             // FunctionDeclaration 特定节点
-//            console.log(path)
+            if(path.node.id.name == 'show1')
+            {
+//                path.node.id.name = 'show'
+            }
+//            console.log(path.node)
         },
         enter(path) {
             // 进入节点
